@@ -1,0 +1,17 @@
+div.state-boot img.logo {
+  height: 150px;
+}
+
+div.state-boot div.progressbar {
+  margin: 0 auto;
+  margin-top: 20px;
+  border-radius: 3.5px;
+  background-color: rgb(20, 20, 20);
+  height: 7px;
+}
+
+div.state-boot div.progressbar > div {
+  height: 7px;
+  background-color: #bbb;
+  border-radius: 3.5px;
+}

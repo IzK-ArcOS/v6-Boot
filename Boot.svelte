@@ -1,8 +1,9 @@
 <script lang="ts">
+  import "./css/boot.css";
   import { Logo } from "$ts/branding";
   import { StateHandler } from "$ts/states";
   import { onMount } from "svelte";
-  import Bar from "../../lib/Components/Progress/Bar.svelte";
+  import Indeterminate from "$lib/Components/Progress/Indeterminate.svelte";
 
   export let handler: StateHandler;
 
@@ -14,6 +15,6 @@
 <div class="state-boot fullscreen center-flex">
   <div class="content">
     <img src={Logo()} alt="" class="logo" />
-    <Bar indeterminate />
+    <Indeterminate width={150} />
   </div>
 </div>
