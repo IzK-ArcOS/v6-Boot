@@ -1,3 +1,10 @@
+div.state-boot div.content {
+  min-width: fit-content;
+  text-align: center !important;
+  display: flex;
+  flex-direction: column;
+}
+
 div.state-boot img.logo {
   height: 150px;
 }
@@ -14,4 +21,11 @@ div.state-boot div.progressbar > div {
   height: 7px;
   background-color: #bbb;
   border-radius: 3.5px;
+}
+
+div.state-boot p.status {
+  margin-top: 23px;
+  text-align: center;
+  font-family: var(--font);
+  color: #eee;
 }
