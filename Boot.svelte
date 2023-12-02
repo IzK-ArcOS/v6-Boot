@@ -1,15 +1,15 @@
 <script lang="ts">
-  import "./css/boot.css";
-  import { Logo } from "$ts/branding";
-  import { StateHandler } from "$ts/states";
-  import { onMount } from "svelte";
   import Indeterminate from "$lib/Components/Progress/Indeterminate.svelte";
-  import { sleep } from "$ts/util";
+  import { Logo } from "$ts/branding";
   import { Log } from "$ts/console";
-  import { getAllServers, getServer } from "$ts/server/multi";
-  import { getAuthcode } from "$ts/server/authcode";
-  import { testConnection } from "$ts/server/test";
   import { isDesktop } from "$ts/metadata/desktop";
+  import { getAuthcode } from "$ts/server/authcode";
+  import { getAllServers, getServer } from "$ts/server/multi";
+  import { testConnection } from "$ts/server/test";
+  import { StateHandler } from "$ts/states";
+  import { sleep } from "$ts/util";
+  import { onMount } from "svelte";
+  import "./css/boot.css";
 
   export let handler: StateHandler;
 
