@@ -1,3 +1,12 @@
+div.state-boot {
+  opacity: 0;
+}
+
+div.state-boot,
+div.state-boot * {
+  transition: opacity 0.5s;
+}
+
 div.state-boot div.content {
   min-width: fit-content;
   text-align: center !important;
@@ -28,4 +37,13 @@ div.state-boot p.status {
   text-align: center;
   font-family: var(--font);
   color: #eee;
+}
+
+div.state-boot.fadein,
+div.state-boot.fadein * {
+  opacity: 1;
+}
+div.state-boot.fadeout,
+div.state-boot.fadeout * {
+  opacity: 0 !important;
 }

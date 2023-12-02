@@ -9,6 +9,7 @@
   import { getAllServers, getServer } from "$ts/server/multi";
   import { getAuthcode } from "$ts/server/authcode";
   import { testConnection } from "$ts/server/test";
+  import { isDesktop } from "$ts/metadata/desktop";
 
   export let handler: StateHandler;
 
@@ -19,10 +20,22 @@
   let running = false;
 
   onMount(async () => {
+    if (isDesktop()) {
+      await sleep(500);
+
+      bootClass = "fadein";
+
+      return startBooting();
+    }
+
     status = "Press a key or click to start";
 
     document.addEventListener("click", startBooting, { once: true });
     document.addEventListener("keydown", startBooting, { once: true });
+
+    await sleep(500);
+
+    bootClass = "fadein";
   });
 
   async function startBooting() {
@@ -72,7 +85,7 @@
 <div class="state-boot fullscreen center-flex {bootClass}">
   <div class="content">
     <img src={Logo()} alt="" class="logo" />
-    <Indeterminate width={150} />
+    <Indeterminate width={150} active={progress} />
     <p class="status">{@html status}</p>
   </div>
 </div>
