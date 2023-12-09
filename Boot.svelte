@@ -15,7 +15,7 @@
 
   let status = "";
   let bootClass = "";
-  let targetState = "arcterm";
+  let targetState = "login";
   let progress = false;
   let running = false;
 
