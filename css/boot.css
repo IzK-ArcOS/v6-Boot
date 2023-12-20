@@ -9,12 +9,14 @@ div.state-boot * {
 
 div.state-boot div.content {
   min-width: fit-content;
+  align-items: center;
   text-align: center !important;
   display: flex;
   flex-direction: column;
 }
 
 div.state-boot img.logo {
+  width: 150px;
   height: 150px;
 }
 
@@ -26,7 +28,7 @@ div.state-boot div.progressbar {
   height: 7px;
 }
 
-div.state-boot div.progressbar > div {
+div.state-boot div.progressbar>div {
   height: 7px;
   background-color: #bbb;
   border-radius: 3.5px;
@@ -43,6 +45,7 @@ div.state-boot.fadein,
 div.state-boot.fadein * {
   opacity: 1;
 }
+
 div.state-boot.fadeout,
 div.state-boot.fadeout * {
   opacity: 0 !important;
