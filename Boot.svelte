@@ -47,7 +47,8 @@
 
     if (targetState == "serverselect") return await redirect();
 
-    if (!(await checkServer()) && !getAllServers()) status = "Preparing ArcOS";
+    if (!(await checkServer()) && !getAllServers().length)
+      status = "Welcome to ArcOS";
 
     await redirect();
   }
