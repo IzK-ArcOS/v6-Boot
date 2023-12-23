@@ -32,6 +32,7 @@
 
     document.addEventListener("click", startBooting, { once: true });
     document.addEventListener("keydown", startBooting, { once: true });
+    document.addEventListener("keydown", arcTermShortcut);
 
     await sleep(500);
 
@@ -51,6 +52,20 @@
       status = "Welcome to ArcOS";
 
     await redirect();
+  }
+
+  function arcTermShortcut(e: KeyboardEvent) {
+    if (!e.key) return;
+
+    const key = e.key.toLowerCase();
+
+    if (key == "f8" || targetState == "serverselect")
+      return (targetState = "serverselect");
+
+    if (!e.altKey || key != "a") return;
+
+    targetState = "arcterm";
+    status = "Loading ArcTerm";
   }
 
   async function checkServer() {
