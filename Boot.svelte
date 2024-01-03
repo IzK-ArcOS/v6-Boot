@@ -1,6 +1,7 @@
 <script lang="ts">
   import Indeterminate from "$lib/Components/Progress/Indeterminate.svelte";
   import { Logo } from "$ts/branding";
+  import { manualCrash } from "$ts/bugrep/crash";
   import { Log } from "$ts/console";
   import { isDesktop } from "$ts/metadata/desktop";
   import { getAuthcode } from "$ts/server/authcode";
@@ -44,7 +45,6 @@
     running = true;
     status = "&nbsp;";
     progress = true;
-    //Busy.set(true);
 
     if (targetState == "serverselect") return await redirect();
 
@@ -81,7 +81,14 @@
     if (!connected) {
       bootClass = "fadeout";
 
-      return targetState == "serverselect" ? false : true;
+      manualCrash(
+        "Boot",
+        `Connecting to server failed. This is a temporary error.`
+      );
+
+      targetState = "crash";
+
+      return /* targetState == "serverselect" ? false : true; */ false;
     }
 
     return connected;
