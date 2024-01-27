@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Indeterminate from "$lib/Components/Progress/Indeterminate.svelte";
+  import HtmlSpinner from "$lib/Components/HtmlSpinner.svelte";
   import { Logo } from "$ts/branding";
   import { manualCrash } from "$ts/bugrep/crash";
   import { Log } from "$ts/console";
@@ -11,6 +11,7 @@
   import { sleep } from "$ts/util";
   import { onMount } from "svelte";
   import "./css/boot.css";
+  import Spinner from "$lib/Components/Spinner.svelte";
 
   export let handler: StateHandler;
 
@@ -108,7 +109,9 @@
 <div class="state-boot fullscreen center-flex {bootClass}">
   <div class="content">
     <img src={Logo()} alt="" class="logo" />
-    <Indeterminate width={150} active={progress} />
-    <p class="status">{@html status}</p>
+    <div class="bottom">
+      <Spinner height={30} stopped={!progress} />
+      <p class="status">{@html status}</p>
+    </div>
   </div>
 </div>

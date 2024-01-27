@@ -1,5 +1,6 @@
 div.state-boot {
   opacity: 0;
+  color: #fff;
 }
 
 div.state-boot,
@@ -10,14 +11,17 @@ div.state-boot * {
 div.state-boot div.content {
   min-width: fit-content;
   align-items: center;
+  justify-content: space-around;
   text-align: center !important;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  padding: 6vw 0;
 }
 
 div.state-boot img.logo {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
 }
 
 div.state-boot div.progressbar {
@@ -35,10 +39,10 @@ div.state-boot div.progressbar > div {
 }
 
 div.state-boot p.status {
-  margin-top: 23px;
   text-align: center;
   font-family: var(--font);
   color: #eee;
+  margin: 0;
 }
 
 div.state-boot.fadein,
@@ -49,4 +53,10 @@ div.state-boot.fadein * {
 div.state-boot.fadeout,
 div.state-boot.fadeout * {
   opacity: 0 !important;
+}
+
+div.state-boot div.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
