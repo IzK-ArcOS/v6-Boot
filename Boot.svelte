@@ -2,7 +2,6 @@
   import Spinner from "$lib/Components/Spinner.svelte";
   import { manualCrash } from "$ts/bugrep/crash";
   import { Log } from "$ts/console";
-  import { GlowingLogo } from "$ts/images/branding";
   import { isDesktop } from "$ts/metadata/desktop";
   import { getAuthcode } from "$ts/server/authcode";
   import { getAllServers, getServer } from "$ts/server/multi";
@@ -11,6 +10,7 @@
   import { sleep } from "$ts/util";
   import { onMount } from "svelte";
   import "./css/boot.css";
+  import GlowingLogo from "$lib/Components/GlowingLogo.svelte";
 
   export let handler: StateHandler;
 
@@ -107,7 +107,7 @@
 
 <div class="state-boot fullscreen center-flex {bootClass}">
   <div class="content">
-    <img src={GlowingLogo} alt="" class="logo" />
+    <GlowingLogo />
     <div class="bottom">
       <Spinner height={30} stopped={!progress} />
       <p class="status">{@html status}</p>
