@@ -6,11 +6,13 @@
   import { getAuthcode } from "$ts/server/authcode";
   import { getAllServers, getServer } from "$ts/server/multi";
   import { testConnection } from "$ts/server/test";
-  import { StateHandler } from "$ts/states";
+  import { PrimaryState, StateHandler } from "$ts/states";
   import { sleep } from "$ts/util";
   import { onMount } from "svelte";
   import "./css/boot.css";
   import GlowingLogo from "$lib/Components/GlowingLogo.svelte";
+  import { BugReportIcon } from "$ts/images/general";
+  import { connect } from "http2";
 
   export let handler: StateHandler;
 
@@ -19,6 +21,7 @@
   let targetState = "login";
   let progress = false;
   let running = false;
+  let connectFailed = false;
 
   onMount(async () => {
     if (isDesktop()) {
@@ -48,10 +51,9 @@
 
     if (targetState == "serverselect") return await redirect();
 
-    if (!(await checkServer()) && !getAllServers().length)
-      status = "Welcome to ArcOS";
+    if (!(await checkServer()) && !getAllServers().length) status = "Welcome to ArcOS";
 
-    await redirect();
+    if (!connectFailed) await redirect();
   }
 
   function arcTermShortcut(e: KeyboardEvent) {
@@ -59,8 +61,10 @@
 
     const key = e.key.toLowerCase();
 
-    if (key == "f8" || targetState == "serverselect")
+    if (key == "f8" || targetState == "serverselect") {
+      status = "Waiting for Server Select...";
       return (targetState = "serverselect");
+    }
 
     if (!e.altKey || key != "a") return;
 
@@ -79,17 +83,15 @@
     const connected = await testConnection(serverHost, authCode);
 
     if (!connected) {
-      bootClass = "fadeout";
+      // manualCrash("Boot", `Connecting to server failed. This is a temporary error.`);
+      connectFailed = true;
 
-      manualCrash(
-        "Boot",
-        `Connecting to server failed. This is a temporary error.`
-      );
-
-      targetState = "crash";
+      targetState = "boot";
 
       return /* targetState == "serverselect" ? false : true; */ false;
     }
+
+    bootClass = "fadeout";
 
     return connected;
   }
@@ -103,14 +105,31 @@
     handler.navigate(targetState);
     //Busy.set(false);
   }
+
+  function changeServer() {
+    PrimaryState.navigate("serverselect");
+  }
 </script>
 
 <div class="state-boot fullscreen center-flex {bootClass}">
-  <div class="content">
-    <GlowingLogo />
-    <div class="bottom">
-      <Spinner height={30} stopped={!progress} />
-      <p class="status">{@html status}</p>
+  {#if connectFailed}
+    <div class="connection-failed">
+      <img src={BugReportIcon} alt="" />
+      <h1>Connection failed!</h1>
+      <p>
+        ArcOS could not connect to <b>{getServer()}</b>!<br />
+        Please check your internet connection.
+      </p>
+      <button on:click={changeServer}>Change Server</button>
+      <button on:click={() => location.reload()}>Restart</button>
     </div>
-  </div>
+  {:else}
+    <div class="content">
+      <GlowingLogo />
+      <div class="bottom">
+        <Spinner height={30} stopped={!progress} />
+        <p class="status">{@html status}</p>
+      </div>
+    </div>
+  {/if}
 </div>
