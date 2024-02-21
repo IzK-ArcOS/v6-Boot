@@ -1,7 +1,8 @@
 <script lang="ts">
+  import GlowingLogo from "$lib/Components/GlowingLogo.svelte";
   import Spinner from "$lib/Components/Spinner.svelte";
-  import { manualCrash } from "$ts/bugrep/crash";
   import { Log } from "$ts/console";
+  import { BugReportIcon } from "$ts/images/general";
   import { isDesktop } from "$ts/metadata/desktop";
   import { getAuthcode } from "$ts/server/authcode";
   import { getAllServers, getServer } from "$ts/server/multi";
@@ -10,9 +11,6 @@
   import { sleep } from "$ts/util";
   import { onMount } from "svelte";
   import "./css/boot.css";
-  import GlowingLogo from "$lib/Components/GlowingLogo.svelte";
-  import { BugReportIcon } from "$ts/images/general";
-  import { connect } from "http2";
 
   export let handler: StateHandler;
 
