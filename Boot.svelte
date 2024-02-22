@@ -11,6 +11,8 @@
   import { sleep } from "$ts/util";
   import { onMount } from "svelte";
   import "./css/boot.css";
+  import { ArcOSVersion } from "$ts/env";
+  import { ARCOS_BUILD, ARCOS_MODE } from "$ts/metadata";
 
   export let handler: StateHandler;
 
@@ -104,7 +106,9 @@
     //Busy.set(false);
   }
 
-  function changeServer() {
+  async function changeServer() {
+    targetState = "serverselect";
+    await sleep(2000);
     PrimaryState.navigate("serverselect");
   }
 </script>
@@ -130,4 +134,8 @@
       </div>
     </div>
   {/if}
+  <div class="version">v{ArcOSVersion}-{ARCOS_MODE} ({ARCOS_BUILD})</div>
+  <div class="f8">
+    {targetState == "serverselect" ? "Loading Server Selector..." : "Press F8 to select server"}
+  </div>
 </div>

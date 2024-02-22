@@ -1,6 +1,27 @@
+:root div.state-boot {
+  --fg: #eee;
+  --bg: #000;
+}
+
+@media screen and (prefers-color-scheme: light) {
+  :root div.state-boot {
+    --fg: #333;
+    --bg: #fff;
+  }
+
+  div.state-boot img.glowing-logo {
+    background-image: none;
+  }
+
+  div.state-boot img.spinner-svg {
+    filter: brightness(0.4);
+  }
+}
+
 div.state-boot {
   opacity: 0;
-  color: #fff;
+  color: var(--fg);
+  background-color: var(--bg);
 }
 
 div.state-boot,
@@ -25,7 +46,7 @@ div.state-boot div.connection-failed {
   border-radius: var(--win-border-rad);
   border: var(--win-border);
   background-color: var(--win-bg);
-  color: Var(--fg);
+  color: var(--fg);
 }
 
 div.state-boot div.connection-failed img {
@@ -40,6 +61,7 @@ div.state-boot div.connection-failed h1 {
 
 div.state-boot div.connection-failed p {
   margin: 20px 0;
+  color: var(--fg);
 }
 
 div.state-boot div.connection-failed button {
@@ -86,7 +108,7 @@ div.state-boot div.progressbar > div {
 div.state-boot p.status {
   text-align: center;
   font-family: var(--font);
-  color: #eee;
+  color: var(--fg);
   margin: 0;
 }
 
@@ -104,4 +126,26 @@ div.state-boot div.bottom {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+div.state-boot div.version,
+div.state-boot div.f8 {
+  position: absolute;
+  font-family: "Source Code Pro";
+  font-size: 13px;
+}
+
+div.state-boot div.version {
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  margin: 20px 0;
+  opacity: 0.4;
+}
+
+div.state-boot div.f8 {
+  top: 5px;
+  right: 5px;
+  opacity: 0.7;
 }
