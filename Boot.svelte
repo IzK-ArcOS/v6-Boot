@@ -13,6 +13,7 @@
   import "./css/boot.css";
   import { ArcOSVersion } from "$ts/env";
   import { ARCOS_BUILD, ARCOS_MODE } from "$ts/metadata";
+  import { SafeMode } from "$state/Desktop/ts/store";
 
   export let handler: StateHandler;
 
@@ -22,6 +23,7 @@
   let progress = false;
   let running = false;
   let connectFailed = false;
+  let isSafeMode = false;
 
   onMount(async () => {
     if (isDesktop()) {
@@ -36,6 +38,7 @@
 
     document.addEventListener("click", startBooting, { once: true });
     document.addEventListener("keydown", startBooting, { once: true });
+    document.addEventListener("keydown", safeMode);
     document.addEventListener("keydown", arcTermShortcut);
 
     await sleep(500);
@@ -56,8 +59,20 @@
     if (!connectFailed) await redirect();
   }
 
-  function arcTermShortcut(e: KeyboardEvent) {
+  async function safeMode(e: KeyboardEvent) {
     if (!e.key) return;
+
+    const key = e.key.toLowerCase();
+
+    if (key != " " || !e.shiftKey) return;
+
+    status = "Entering Safe Mode...";
+    SafeMode.set(true);
+    isSafeMode = true;
+  }
+
+  function arcTermShortcut(e: KeyboardEvent) {
+    if (!e.key || isSafeMode) return;
 
     const key = e.key.toLowerCase();
 
