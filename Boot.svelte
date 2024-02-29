@@ -25,6 +25,8 @@
   let connectFailed = false;
   let isSafeMode = false;
 
+  const { current: State } = handler;
+
   onMount(async () => {
     if (isDesktop()) {
       await sleep(500);
@@ -60,7 +62,7 @@
   }
 
   async function safeMode(e: KeyboardEvent) {
-    if (!e.key) return;
+    if (!e.key || $State.key !== "boot") return;
 
     const key = e.key.toLowerCase();
 
@@ -72,7 +74,7 @@
   }
 
   function arcTermShortcut(e: KeyboardEvent) {
-    if (!e.key || isSafeMode) return;
+    if (!e.key || isSafeMode || $State.key !== "boot") return;
 
     const key = e.key.toLowerCase();
 
@@ -105,8 +107,6 @@
 
       return /* targetState == "serverselect" ? false : true; */ false;
     }
-
-    bootClass = "fadeout";
 
     return connected;
   }
