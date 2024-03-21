@@ -1,8 +1,11 @@
 <script lang="ts">
   import GlowingLogo from "$lib/Components/GlowingLogo.svelte";
   import Spinner from "$lib/Components/Spinner.svelte";
+  import { SafeMode } from "$state/Desktop/ts/store";
   import { Log } from "$ts/console";
+  import { ArcOSVersion } from "$ts/env";
   import { BugReportIcon } from "$ts/images/general";
+  import { ARCOS_BUILD, ARCOS_MODE } from "$ts/metadata";
   import { isDesktop } from "$ts/metadata/desktop";
   import { getAuthcode } from "$ts/server/authcode";
   import { getAllServers, getServer } from "$ts/server/multi";
@@ -11,9 +14,6 @@
   import { sleep } from "$ts/util";
   import { onMount } from "svelte";
   import "./css/boot.css";
-  import { ArcOSVersion } from "$ts/env";
-  import { ARCOS_BUILD, ARCOS_MODE } from "$ts/metadata";
-  import { SafeMode } from "$state/Desktop/ts/store";
 
   export let handler: StateHandler;
 
