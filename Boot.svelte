@@ -28,6 +28,9 @@
   const { current: State } = handler;
 
   onMount(async () => {
+    document.addEventListener("keydown", safeMode);
+    document.addEventListener("keydown", arcTermShortcut);
+
     if (isDesktop()) {
       await sleep(500);
 
@@ -40,8 +43,6 @@
 
     document.addEventListener("click", startBooting, { once: true });
     document.addEventListener("keydown", startBooting, { once: true });
-    document.addEventListener("keydown", safeMode);
-    document.addEventListener("keydown", arcTermShortcut);
 
     await sleep(500);
 
