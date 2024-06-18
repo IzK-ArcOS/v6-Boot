@@ -68,7 +68,7 @@ div.state-boot div.connection-failed button {
   margin: 0;
   padding: 8px 15px;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--button-border-rad);
   background-color: var(--button-bg);
   color: var(--fg);
 }
